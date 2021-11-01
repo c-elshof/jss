@@ -31,7 +31,14 @@
             "allowedCommonJsDependencies": [
               "zen-observable",
               "js-sha256"
-            ]
+            ],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -57,7 +64,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -109,7 +117,9 @@
           "options": {
             "outputPath": "dist/server",
             "main": "server.bundle.ts",
-            "tsConfig": "src/tsconfig.server.json"
+            "tsConfig": "src/tsconfig.server.json",
+            "sourceMap": true,
+            "optimization": false
           },
           "configurations": {
             "production": {
@@ -123,7 +133,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         }
       }
     },
