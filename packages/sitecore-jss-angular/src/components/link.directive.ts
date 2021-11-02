@@ -93,9 +93,15 @@ export class LinkDirective implements OnChanges {
       ...this.getElementAttrs(),
       ...this.attrs,
     };
-    Object.entries(attrs).forEach(([key, attrValue]) =>
-      this.renderer.setAttribute(span, key, attrValue)
-    );
+    Object.keys(attrs).forEach((key) => {
+      if (attrs[key] != null && attrs[key] !== '') {
+        if (key === 'class' && span.className !== '') {
+          this.renderer.setAttribute(span, key, `${span.className} ${attrs[key]}`);
+        } else {
+          this.renderer.setAttribute(span, key, attrs[key]);
+        }
+      }
+    });
 
     this.viewContainer.createEmbeddedView(this.templateRef);
 
@@ -103,6 +109,14 @@ export class LinkDirective implements OnChanges {
     this.renderer.insertBefore(parentNode, span, this.elementRef.nativeElement);
 
     this.inlineRef = span;
+  }
+
+  protected updateAttribute(node: any, key: string, prop: any) {
+    if (key === 'class' && node.className !== '') {
+      this.renderer.setAttribute(node, key, `${node.className} ${prop}`);
+    } else {
+      this.renderer.setAttribute(node, key, prop);
+    }
   }
 
   private getElementAttrs() {
